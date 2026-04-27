@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEN HMAID Yacin — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #f5f7ff;
+    --bg2:      #eef1ff;
+    --surface:  #ffffff;
+    --border:   #dde3f5;
+    --accent:   #4f6ef7;
+    --accent2:  #7c3aed;
+    --accent3:  #06b6d4;
+    --accent4:  #f59e0b;
+    --text:     #374151;
+    --text-dim: #9ca3af;
+    --text-bright: #111827;
+    --display: 'Outfit', sans-serif;
+    --body:    'Nunito', sans-serif;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(79,110,247,.10);
+    --shadow-lg: 0 12px 48px rgba(79,110,247,.16);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(circle, rgba(79,110,247,.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 68px;
+    background: rgba(245,247,255,.9);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+  }
+
+  .nav-logo {
+    font-family: var(--display);
+    font-size: 1.1rem; font-weight: 800;
+    color: var(--accent); letter-spacing: -.5px;
+  }
+
+  .nav-logo span { color: var(--text-dim); font-weight: 400; }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+  .nav-links a {
+    font-family: var(--display);
+    font-size: .85rem; font-weight: 600;
+    color: var(--text-dim); text-decoration: none;
+    transition: color .2s; padding: .3rem 0;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent); border-radius: 2px;
+    transition: width .3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* LAYOUT */
+  .page-wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
+
+  section { padding: 110px 0 80px; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 130px; padding-bottom: 60px;
+  }
+
+  .hero-chip {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(79,110,247,.1);
+    border: 1px solid rgba(79,110,247,.25);
+    color: var(--accent);
+    font-family: var(--display);
+    font-size: .75rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: .4rem 1rem; border-radius: 100px;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp .5s .1s forwards;
+  }
+
+  .hero-chip::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: blink 1.2s infinite;
+  }
+
+  .hero-name {
+    font-family: var(--display);
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--text-bright); letter-spacing: -3px;
+    opacity: 0; animation: fadeUp .55s .25s forwards;
+  }
+
+  .hero-name .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-role {
+    margin-top: 1.5rem;
+    font-family: var(--display);
+    font-size: 1.15rem; font-weight: 500; color: var(--text-dim);
+    opacity: 0; animation: fadeUp .55s .4s forwards;
+  }
+
+  .hero-role strong { color: var(--accent2); font-weight: 700; }
+
+  .hero-desc {
+    margin-top: 1.5rem; max-width: 580px;
+    font-size: 1.05rem; line-height: 1.85; color: var(--text);
+    opacity: 0; animation: fadeUp .55s .55s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .55s .7s forwards;
+  }
+
+  .btn {
+    font-family: var(--display);
+    font-size: .85rem; font-weight: 700;
+    padding: .85rem 2rem; border-radius: 100px;
+    text-decoration: none; transition: all .25s;
+    display: inline-block; cursor: pointer; border: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(79,110,247,.35);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,110,247,.45); }
+
+  .btn-outline {
+    background: var(--surface); color: var(--text);
+    border: 1.5px solid var(--border); box-shadow: var(--shadow);
+  }
+
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  .hero-stats {
+    margin-top: 4rem; display: flex; gap: 1.5rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .55s .85s forwards;
+  }
+
+  .stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.2rem 1.8rem;
+    text-align: center; box-shadow: var(--shadow); min-width: 110px;
+  }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 1.9rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1;
+  }
+
+  .stat-label { font-size: .7rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: .3rem; }
+
+  /* SECTION HEADER */
+  .section-label {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(79,110,247,.1); border: 1px solid rgba(79,110,247,.2);
+    color: var(--accent); font-family: var(--display);
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: .3rem .9rem; border-radius: 100px; margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
+    color: var(--text-bright); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1rem;
+  }
+
+  .section-sub { font-size: .95rem; line-height: 1.8; color: var(--text-dim); max-width: 600px; margin-bottom: 3rem; }
+
+  /* FILIÈRE */
+  .filiere-intro { font-size: 1rem; line-height: 1.85; color: var(--text); max-width: 680px; margin-bottom: 3rem; }
+
+  .filiere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .filiere-card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 2.5rem; box-shadow: var(--shadow);
+    transition: all .3s; position: relative; overflow: hidden;
+  }
+
+  .filiere-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent));
+    border-radius: 20px 20px 0 0;
+  }
+
+  .filiere-card.active::before { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  .filiere-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+  .filiere-tag { font-family: var(--display); font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: .8rem; }
+
+  .filiere-name { font-family: var(--display); font-size: 1.7rem; font-weight: 900; color: var(--text-bright); margin-bottom: .8rem; }
+
+  .filiere-name sub { font-size: .5em; font-weight: 400; color: var(--text-dim); vertical-align: middle; }
+
+  .filiere-desc { font-size: .9rem; line-height: 1.8; color: var(--text-dim); margin-bottom: 1.8rem; }
+
+  .jobs-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+
+  .jobs-list li {
+    font-size: .82rem; font-weight: 600; color: var(--text);
+    padding: .5rem .9rem; background: var(--bg);
+    border-radius: 8px; transition: all .2s;
+    border-left: 3px solid transparent;
+  }
+
+  .jobs-list li:hover { background: rgba(79,110,247,.07); border-left-color: var(--accent); color: var(--accent); }
+
+  .badge-current {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-family: var(--display);
+    font-size: .6rem; font-weight: 800;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: .25rem .7rem; border-radius: 100px;
+    margin-left: .8rem; vertical-align: middle;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2.5rem; }
+
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 6px; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--accent), rgba(79,110,247,.05));
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative; margin-bottom: 2.5rem;
+    opacity: 0; transform: translateX(-16px); animation: slideIn .5s forwards;
+  }
+
+  .timeline-item:nth-child(1){animation-delay:.1s}
+  .timeline-item:nth-child(2){animation-delay:.2s}
+  .timeline-item:nth-child(3){animation-delay:.3s}
+  .timeline-item:nth-child(4){animation-delay:.4s}
+  .timeline-item:nth-child(5){animation-delay:.5s}
+  .timeline-item:nth-child(6){animation-delay:.6s}
+
+  .timeline-dot {
+    position: absolute; left: -2.5rem; top: .7rem;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 0 0 4px rgba(79,110,247,.15);
+  }
+
+  .tl-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem 1.8rem;
+    box-shadow: var(--shadow); transition: all .25s;
+  }
+
+  .tl-card:hover { transform: translateX(4px); box-shadow: var(--shadow-lg); border-color: rgba(79,110,247,.3); }
+
+  .tl-date { font-family: var(--display); font-size: .68rem; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: .4rem; }
+
+  .tl-title { font-family: var(--display); font-size: 1.1rem; font-weight: 800; color: var(--text-bright); margin-bottom: .2rem; }
+
+  .tl-place { font-size: .82rem; color: var(--text-dim); margin-bottom: .5rem; }
+
+  .tl-details { font-size: .85rem; color: var(--text); line-height: 1.6; }
+
+  .chip {
+    display: inline-block; font-family: var(--display);
+    font-size: .65rem; font-weight: 700;
+    padding: .2rem .7rem; border-radius: 100px;
+    margin-right: .35rem; margin-top: .6rem; border: 1px solid;
+  }
+
+  .chip-blue   { background: rgba(79,110,247,.1);  border-color: rgba(79,110,247,.3);  color: var(--accent); }
+  .chip-purple { background: rgba(124,58,237,.1);  border-color: rgba(124,58,237,.3);  color: var(--accent2); }
+  .chip-teal   { background: rgba(6,182,212,.1);   border-color: rgba(6,182,212,.3);   color: var(--accent3); }
+  .chip-amber  { background: rgba(245,158,11,.1);  border-color: rgba(245,158,11,.3);  color: var(--accent4); }
+  .chip-green  { background: rgba(16,185,129,.1);  border-color: rgba(16,185,129,.3);  color: #10b981; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+
+  .skill-card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.4rem 1rem;
+    text-align: center; box-shadow: var(--shadow);
+    transition: all .25s; cursor: default;
+  }
+
+  .skill-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow-lg); }
+
+  .skill-icon { font-size: 2rem; margin-bottom: .6rem; display: block; }
+
+  .skill-name { font-family: var(--display); font-size: .82rem; font-weight: 700; color: var(--text-bright); }
+
+  /* VEILLE */
+  .veille-hero-card {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 24px; padding: 3rem; color: #fff;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 12px 48px rgba(79,110,247,.3);
+  }
+
+  .veille-meta h3 { font-family: var(--display); font-size: .7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: .7; margin-bottom: 1.2rem; }
+
+  .veille-meta p { font-family: var(--display); font-size: .85rem; line-height: 2.2; opacity: .85; }
+
+  .veille-meta strong { font-weight: 800; }
+
+  .veille-content h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 900; margin-bottom: 1rem; }
+
+  .veille-content p { font-size: .9rem; line-height: 1.8; opacity: .85; margin-bottom: 1rem; }
+
+  .btn-white {
+    display: inline-block;
+    background: rgba(255,255,255,.2); border: 1.5px solid rgba(255,255,255,.4);
+    color: #fff; font-family: var(--display);
+    font-size: .75rem; font-weight: 700;
+    padding: .7rem 1.5rem; border-radius: 100px;
+    text-decoration: none; transition: all .2s; margin-top: .5rem;
+  }
+
+  .btn-white:hover { background: rgba(255,255,255,.35); }
+
+  .va-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 3rem; }
+
+  .va-card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); transition: all .3s;
+  }
+
+  .va-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(79,110,247,.3); }
+
+  .va-icon { font-size: 2rem; margin-bottom: .8rem; }
+
+  .va-title { font-family: var(--display); font-size: 1rem; font-weight: 800; color: var(--text-bright); margin-bottom: .5rem; }
+
+  .va-text { font-size: .85rem; color: var(--text-dim); line-height: 1.7; }
+
+  .sources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+  .source-card {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.4rem 1.6rem;
+    box-shadow: var(--shadow); transition: all .25s;
+  }
+
+  .source-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: rgba(79,110,247,.3); }
+
+  .source-org { font-family: var(--display); font-size: .65rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent3); margin-bottom: .5rem; }
+
+  .source-title { font-family: var(--display); font-size: .9rem; font-weight: 700; color: var(--text-bright); line-height: 1.4; margin-bottom: .4rem; }
+
+  .source-url { font-size: .72rem; color: var(--text-dim); word-break: break-all; }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+  .contact-info h3 { font-family: var(--display); font-size: 1.4rem; font-weight: 900; color: var(--text-bright); margin-bottom: .8rem; }
+
+  .contact-info p { font-size: .9rem; line-height: 1.8; color: var(--text-dim); margin-bottom: 2rem; }
+
+  .contact-links { display: flex; flex-direction: column; gap: .75rem; }
+
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: .9rem 1.2rem;
+    font-family: var(--display); font-size: .82rem; font-weight: 600;
+    color: var(--text); text-decoration: none; box-shadow: var(--shadow); transition: all .25s;
+  }
+
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); box-shadow: var(--shadow-lg); }
+
+  .contact-link-icon { font-size: 1.1rem; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-group label { display: block; font-family: var(--display); font-size: .72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dim); margin-bottom: .5rem; }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 12px;
+    color: var(--text-bright); font-family: var(--body);
+    font-size: .9rem; padding: .85rem 1.1rem; outline: none;
+    transition: border-color .2s, box-shadow .2s; resize: vertical;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,110,247,.12); }
+
+  .form-group textarea { min-height: 120px; }
+
+  .form-submit {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; font-family: var(--display);
+    font-size: .85rem; font-weight: 700;
+    padding: .9rem 2rem; border-radius: 100px;
+    cursor: pointer; border: none;
+    box-shadow: 0 4px 20px rgba(79,110,247,.3);
+    transition: all .25s; align-self: flex-start;
+  }
+
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,110,247,.4); }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    background: var(--surface); border-top: 1px solid var(--border);
+    padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-copy { font-family: var(--display); font-size: .78rem; color: var(--text-dim); }
+
+  .footer-copy span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; font-weight: 800;
+  }
+
+  .scroll-top {
+    font-family: var(--display); font-size: .78rem; font-weight: 700;
+    color: var(--accent); text-decoration: none;
+    background: rgba(79,110,247,.1); border: 1px solid rgba(79,110,247,.2);
+    padding: .4rem 1rem; border-radius: 100px; transition: all .2s;
+  }
+
+  .scroll-top:hover { background: rgba(79,110,247,.18); }
+
+  /* DIVIDER */
+  .divider {
+    position: relative; z-index: 1; height: 1px;
+    background: linear-gradient(to right, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    margin: 0 2rem;
+  }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s, transform .65s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes blink { 0%,100% { opacity: 1 } 50% { opacity: 0 } }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.2rem; }
+    .nav-links { gap: .8rem; }
+    .nav-links a { font-size: .75rem; }
+    .page-wrap { padding: 0 1.2rem; }
+    .filiere-grid, .contact-grid, .va-grid { grid-template-columns: 1fr; }
+    .veille-hero-card { grid-template-columns: 1fr; }
+    .hero-stats { gap: .8rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Yacin<span> BEN HMAID</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Accueil</a></li>
+    <li><a href="#filiere">Filière</a></li>
+    <li><a href="#formations">Formations</a></li>
+    <li><a href="#skills">Compétences</a></li>
+    <li><a href="#veille">Veille Technologique</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page-wrap">
+<section id="hero">
+  <div class="hero-chip">BTS SIO SLAM · Rouen · 2025</div>
+  <h1 class="hero-name">BEN HMAID<br><span class="highlight">Yacin</span></h1>
+  <p class="hero-role">Étudiant <strong>BTS SIO – Option SLAM</strong> · Lycée Gustave Flaubert · Rouen</p>
+  <p class="hero-desc">
+    Passionné par le développement informatique, j'explore les langages et les projets 
+    concrets. Ce portfolio regroupe mes compétences, 
+    réalisations et mon parcours dans le domaine du développement.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">2 ANS</div><div class="stat-label">BTS SIO</div></div>
+    <div class="stat"><div class="stat-num">SLAM</div><div class="stat-label">Option</div></div>
+    <div class="stat"><div class="stat-num">76</div><div class="stat-label">Rouen</div></div>
+    <div class="stat"><div class="stat-num">MACHINE LEARNING</div><div class="stat-label">Veille Technologique</div></div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- FILIÈRE -->
+<div style="background:var(--bg2);position:relative;z-index:1;">
+<div class="page-wrap">
+<section id="filiere">
+  <div class="reveal">
+    <div class="section-label">Ma filière</div>
+    <h2 class="section-title">BTS SIO — deux voies</h2>
+    <p class="filiere-intro">Le BTS Services Informatiques aux Organisations est une formation de deux ans qui prépare aux métiers de l'informatique, avec deux spécialisations distinctes.</p>
+  </div>
+  <div class="filiere-grid reveal">
+    <div class="filiere-card">
+      <div class="filiere-tag">Option 01</div>
+      <h3 class="filiere-name">SISR <sub>— Réseaux</sub></h3>
+      <p class="filiere-desc">Axée sur la conception et la gestion des infrastructures réseau. Les étudiants apprennent à garantir la sécurité, entretenir et installer les réseaux et équipements informatiques.</p>
+      <ul class="jobs-list">
+        <li>Technicien systèmes et réseaux</li>
+        <li>Administrateur systèmes</li>
+        <li>Support systèmes et réseaux</li>
+        <li>Technicien de production</li>
+        <li>Pilote d'exploitation</li>
+        <li>Informaticien support &amp; déploiement</li>
+      </ul>
+    </div>
+    <div class="filiere-card active">
+      <div class="filiere-tag">Option 02 <span class="badge-current">Ma filière</span></div>
+      <h3 class="filiere-name">SLAM <sub>— Développement</sub></h3>
+      <p class="filiere-desc">Destinée aux étudiants qui s'orientent vers la conception et la maintenance de programmes applicatifs. Du développement web aux applications métier.</p>
+      <ul class="jobs-list">
+        <li>Développeur d'applications</li>
+        <li>Analyste d'applications</li>
+        <li>Analyste programmeur</li>
+        <li>Chargé d'études informatiques</li>
+        <li>Programmeur d'applications</li>
+        <li>Responsable des services applicatifs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FORMATIONS -->
+<div class="page-wrap">
+<section id="formations">
+  <div class="reveal">
+    <div class="section-label">Parcours académique</div>
+    <h2 class="section-title">Diplômes &amp; Formations</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-date">2024 — En cours</div>
+        <div class="tl-title">BTS SIO — Option SLAM</div>
+        <div class="tl-place">📍 Lycée Gustave Flaubert · Rouen (76000)</div>
+        <div class="tl-details">Services Informatiques aux Organisations — Solutions Logicielles et Applications Métier.</div>
+        <span class="chip chip-blue">En cours</span><span class="chip chip-purple">Développement</span><span class="chip chip-teal">Web</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-date">2023 — 2024</div>
+        <div class="tl-title">Licence 1 d'Informatique</div>
+        <div class="tl-place">📍 Université Rouen Normandie · Saint-Étienne-du-Rouvray</div>
+        <div class="tl-details">Première année de licence en informatique, base algorithmique et développement.</div>
+        <span class="chip chip-blue">Université</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-date">2022 — 2023</div>
+        <div class="tl-title">Baccalauréat Scientifique</div>
+        <div class="tl-place">📍 Lycée André Malraux · Gaillon</div>
+        <div class="tl-details">Spécialités Mathématiques &amp; Physique-Chimie · Mention Assez Bien</div>
+        <span class="chip chip-blue">Maths</span><span class="chip chip-teal">Physique</span><span class="chip chip-green">Mention AB</span><span class="chip chip-amber">PIX</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-date">2019 — 2020</div>
+        <div class="tl-title">Diplôme National du Brevet</div>
+        <div class="tl-place">📍 Collège Georges d'Amboise · Gaillon</div>
+        <div class="tl-details">Mention Très Bien</div>
+        <span class="chip chip-green">Mention TB</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-date">Depuis 2020</div>
+        <div class="tl-title">PSC 1 — Prévention et Secours Civiques</div>
+        <div class="tl-place">📍 Gaillon</div>
+        <div class="tl-details">Niveau 1 — gestes de premiers secours.</div>
+        <span class="chip chip-amber">Certification</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-card">
+        <div class="tl-date">Depuis 2018</div>
+        <div class="tl-title">B2i — Brevet Informatique et Internet</div>
+        <div class="tl-place">📍 Gaillon</div>
+        <span class="chip chip-blue">Informatique</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<div style="background:var(--bg2);position:relative;z-index:1;">
+<div class="page-wrap">
+<section id="skills">
+  <div class="reveal">
+    <div class="section-label">Techniques</div>
+    <h2 class="section-title">Compétences</h2>
+    <p class="section-sub">Les langages, outils et technologies que je maîtrise.</p>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-card"><span class="skill-icon">🌐</span><div class="skill-name">HTML / CSS</div></div>
+    <div class="skill-card"><span class="skill-icon">🐍</span><div class="skill-name">Python</div></div>
+    <div class="skill-card"><span class="skill-icon">🐘</span><div class="skill-name">PHP</div></div>
+    <div class="skill-card"><span class="skill-icon">🗄️</span><div class="skill-name">SQL / MySQL</div></div>
+    <div class="skill-card"><span class="skill-icon">🔧</span><div class="skill-name">Git / GitHub</div></div>
+    <div class="skill-card"><span class="skill-icon">🐧</span><div class="skill-name">Linux</div></div>
+  </div>
+  <section id="skills">
+  <div class="reveal">
+    <h2 class="section-title">Grille de Compétences</h2>
+    <p>‎ ‎ ‎ </p>
+    <p>‎ ‎ ‎ </p>
+    <p>‎ ‎ ‎ </p>
+          <a href="file:///C:/Users/Yaassin/Downloads/GrilleEvalOralE5.pdf" target="_blank" class="section-label">📄 Télécharger le document PDF →</a>
+
+  </div>
+  
+</section>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- VEILLE -->
+<div class="page-wrap">
+<section id="veille">
+  <div class="reveal">
+    <div class="section-label">Machine Learning · 2025</div>
+    <h2 class="section-title">Veille Technologique</h2>
+  </div>
+  <div class="veille-hero-card reveal">
+    <div class="veille-meta">
+      <h3>// Méthode</h3>
+      <p>Outil<br><strong>Google Alerts</strong><br><br>Fréquence<br><strong>1 article / semaine</strong><br><br>Stockage<br><strong>Google Drive</strong><br><br>Thème<br><strong>Machine Learning</strong></p>
+    </div>
+    <div class="veille-content">
+      <h3>Pourquoi Google Alerts ?</h3>
+      <p>Google Alerts est un outil simple, efficace et automatisé permettant de recevoir directement par email les articles récents liés au Machine Learning. Il est particulièrement adapté pour une veille régulière grâce à sa facilité d'utilisation, son automatisation totale et sa capacité à filtrer les sources pertinentes et récentes.</p>
+      <p>Chaque semaine, une nouvelle source pertinente est automatiquement envoyée puis stockée dans Google Drive, facilitant l'analyse et le suivi.</p>
+      <a href="file:///C:/Users/Yaassin/Downloads/Veille%20Technologique%20BEN%20HMAID%20Yacin.pdf" target="_blank" class="btn-white">📄 Télécharger le document PDF →</a>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="section-label" style="margin-bottom:1.5rem;">Valeur ajoutée pour l'entreprise</div>
+      <div class="va-card"><div class="va-icon">⚙️</div><div class="va-title">Optimisation des processus</div><div class="va-text">Grâce au Machine Learning, les entreprises pouront reduire leurs coûts et utiliser des automatisation intelligente dans les secteurs de finance et d'industrie par exemple</div></div>
+      <div class="va-card"><div class="va-icon">🤖</div><div class="va-title">Relation client IA</div><div class="va-text">Déploiement de modèles IA génératifs : chatbots internes, assistants de support. Amélioration de la satisfaction client.</div></div>
+      <div class="va-card"><div class="va-icon">🛡️</div><div class="va-title">Cybersécurité ML</div><div class="va-text">Détection avancée des anomalies et des attaques grâce aux modèles d'apprentissage automatique appliqués à la sécurité.</div></div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="section-label" style="margin-bottom:1.5rem;">Sources récentes</div>
+    <div class="sources-grid">
+      <div class="source-card"><div class="source-org">Google Research</div><div class="source-title">Titans + MIRAS: Helping AI have long-term memory</div><div class="source-url">research.google/blog/titans-miras-...</div></div>
+      <div class="source-card"><div class="source-org">Northeastern University</div><div class="source-title">New England Flooding Predictions using AI</div><div class="source-url">news.northeastern.edu/2025/12/02/...</div></div>
+      <div class="source-card"><div class="source-org">Reuters</div><div class="source-title">Étude sur les pratiques de sécurité des entreprises IA</div><div class="source-url">reuters.com/business/ai-companies-safety...</div></div>
+      <div class="source-card"><div class="source-org">HPCWire</div><div class="source-title">UC San Diego — Nouvelle initiative IA Terre &amp; Océans</div><div class="source-url">hpcwire.com/aiwire/2025/12/04/...</div></div>
+      <div class="source-card"><div class="source-org">Loughborough University</div><div class="source-title">App IA pour la multimorbidité (NHS, Royaume-Uni)</div><div class="source-url">lboro.ac.uk/news-events/news/2025/december/...</div></div>
+      <div class="source-card"><div class="source-org">Reuters Legal</div><div class="source-title">Recrutements IA dans les cabinets juridiques</div><div class="source-url">reuters.com/legal/legalindustry/...</div></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div style="background:var(--bg2);position:relative;z-index:1;">
+<div class="page-wrap">
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Disponible</div>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-grid reveal">
+    <div class="contact-info">
+      <h3>Prenons contact 👋</h3>
+      <p>Étudiant en BTS SIO SLAM à Rouen, je suis ouvert aux opportunités de stage, d'alternance ou de projets collaboratifs dans le développement logiciel.</p>
+    </div>
+    <div class="contact-form">
+      <div class="form-group"><label>Votre nom</label><input type="text" placeholder="Jean Dupont"></div>
+      <div class="form-group"><label>Votre email</label><input type="email" placeholder="jean@example.com"></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Bonjour Yacin, je souhaite..."></textarea></div>
+      <button class="form-submit" onclick="this.textContent='✅ Message envoyé !'; this.style.background='linear-gradient(135deg,#10b981,#059669)';">Envoyer le message</button>
+    </div>
+  </div>
+</section>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 <span>BEN HMAID Yacin</span> · BTS SIO SLAM · Rouen</div>
+  <a href="#hero" class="scroll-top">↑ Retour en haut</a>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
